@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test IoT</title>
+</head>
+<body>
+    <h1>
+        Sensor Data Syncronised
+    </h1>
+</body>
+   
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        var currentStatae = "off";
+      
+        $(document).ready(function(){
+            setInterval(() => { 
+                $.get("http://192.168.1.178",function(data){
+                if(currentStatae != data.etat) {
+                    currentStatae = data.etat;
+                    let data_obj = { sensorId: 1, data: data.etat};
+                    console.log(data_obj)
+                    console.log("data changed, post to server !")
+                    //$.post("......", { sensorId: 1, data: data.etat})
+                }
+                })
+            }, 2000);
+        })
+       
+
+    </script>
+    
+</body>
+</html>
